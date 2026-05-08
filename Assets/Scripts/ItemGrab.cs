@@ -18,7 +18,7 @@ public class ItemGrab : MonoBehaviour
         
     }
 
-    public void Grab(InputAction.CallbackContext ctx)
+    public void Grob(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed)
             return;
@@ -30,6 +30,11 @@ public class ItemGrab : MonoBehaviour
             {
                 items.Add(raycastHit.collider.gameObject);
                 raycastHit.collider.gameObject.SetActive(false);
+            }
+
+            if (raycastHit.collider.gameObject.CompareTag("Puzzle"))
+            {
+                raycastHit.collider.gameObject.GetComponent<PuzzlePassword>().OpenPuzzle();
             }
         }
     }

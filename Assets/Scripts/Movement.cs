@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
@@ -20,8 +21,10 @@ public class Movement : MonoBehaviour
         
     }
 
-    public void Forward()
+    public void Forward(InputAction.CallbackContext ctx)
     {
+        if (!ctx.performed) return;
+
         if (Physics.Raycast(camtrans.position, camtrans.forward, out RaycastHit raycasthit, distance))
         {
             if (raycasthit.collider.gameObject.CompareTag("Door"))
@@ -40,13 +43,15 @@ public class Movement : MonoBehaviour
        
     }
 
-    public void Right()
+    public void Right(InputAction.CallbackContext ctx)
     { 
+        if (!ctx.performed) return;
         Rb.rotation = Quaternion.Euler(0, 90, 0) * Rb.rotation;
     }
 
-    public void Left()
+    public void Left(InputAction.CallbackContext ctx)
     {
+        if (!ctx.performed) return;
         Rb.rotation = Quaternion.Euler(0, -90, 0) * Rb.rotation;
     }
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Grabbable
   - Door
+  - Puzzle
+  - Close
   layers:
   - Default
   - TransparentFX
