@@ -34,7 +34,18 @@ public class ItemGrab : MonoBehaviour
 
             if (raycastHit.collider.gameObject.CompareTag("Puzzle"))
             {
+                if (!raycastHit.collider.gameObject.GetComponent<PuzzlePassword>().isOpen)
+
+                {
                 raycastHit.collider.gameObject.GetComponent<PuzzlePassword>().OpenPuzzle();
+                    return;
+                }
+
+                else
+                {
+                    raycastHit.collider.gameObject.GetComponent<PuzzlePassword>().ClosePuzzle();
+                    return;
+                }
             }
         }
     }

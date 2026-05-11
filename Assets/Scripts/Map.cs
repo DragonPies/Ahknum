@@ -33,4 +33,18 @@ public class Map : MonoBehaviour
             isOpen = true;
         }
     }
+    public void ToggleMapB()
+    {
+        if (isOpen)
+        { 
+            anim.SetTrigger("Down");
+            isOpen = false;
+        }
+
+        else
+        {
+            anim.SetTrigger("Up");
+            isOpen = true;
+        }
+    }
 }
