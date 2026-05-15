@@ -37,7 +37,7 @@ public class ItemGrab : MonoBehaviour
                 if (!raycastHit.collider.gameObject.GetComponent<PuzzlePassword>().isOpen)
 
                 {
-                raycastHit.collider.gameObject.GetComponent<PuzzlePassword>().OpenPuzzle();
+                    raycastHit.collider.gameObject.GetComponent<PuzzlePassword>().OpenPuzzle();
                     return;
                 }
 
@@ -47,6 +47,12 @@ public class ItemGrab : MonoBehaviour
                     return;
                 }
             }
+
+            if (raycastHit.collider.gameObject.CompareTag("Wires"))
+            { 
+                raycastHit.collider.gameObject.GetComponent<PuzzleWiresDrag>().WireGrab();
+            }
+
         }
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Door
   - Puzzle
   - Close
+  - Wires
   layers:
   - Default
   - TransparentFX

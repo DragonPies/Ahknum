@@ -2761,7 +2761,7 @@ GameObject:
   - component: {fileID: 513703602}
   m_Layer: 5
   m_Name: Wires3
-  m_TagString: Untagged
+  m_TagString: Wires
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4270,7 +4270,7 @@ GameObject:
   - component: {fileID: 774137550}
   m_Layer: 5
   m_Name: Wires6
-  m_TagString: Untagged
+  m_TagString: Wires
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4478,7 +4478,7 @@ GameObject:
   - component: {fileID: 795919405}
   m_Layer: 5
   m_Name: Wires1
-  m_TagString: Untagged
+  m_TagString: Wires
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6918,7 +6918,7 @@ GameObject:
   - component: {fileID: 1123440957}
   m_Layer: 5
   m_Name: Wires4
-  m_TagString: Untagged
+  m_TagString: Wires
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8202,7 +8202,7 @@ GameObject:
   - component: {fileID: 1340687374}
   m_Layer: 5
   m_Name: Wires2
-  m_TagString: Untagged
+  m_TagString: Wires
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11475,7 +11475,7 @@ GameObject:
   - component: {fileID: 2119973645}
   m_Layer: 5
   m_Name: Wires5
-  m_TagString: Untagged
+  m_TagString: Wires
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
