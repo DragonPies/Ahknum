@@ -22,7 +22,7 @@ public class ItemGrab : MonoBehaviour
     {
         if (!ctx.performed)
             return;
-        Debug.Log("Grabbed");
+       // Debug.Log("Grabbed");
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(cameraRay, out RaycastHit raycastHit))
         {
@@ -30,27 +30,6 @@ public class ItemGrab : MonoBehaviour
             {
                 items.Add(raycastHit.collider.gameObject);
                 raycastHit.collider.gameObject.SetActive(false);
-            }
-
-            if (raycastHit.collider.gameObject.CompareTag("Puzzle"))
-            {
-                if (!raycastHit.collider.gameObject.GetComponent<PuzzlePassword>().isOpen)
-
-                {
-                    raycastHit.collider.gameObject.GetComponent<PuzzlePassword>().OpenPuzzle();
-                    return;
-                }
-
-                else
-                {
-                    raycastHit.collider.gameObject.GetComponent<PuzzlePassword>().ClosePuzzle();
-                    return;
-                }
-            }
-
-            if (raycastHit.collider.gameObject.CompareTag("Wires"))
-            { 
-                raycastHit.collider.gameObject.GetComponent<PuzzleWiresDrag>().WireGrab();
             }
 
         }
