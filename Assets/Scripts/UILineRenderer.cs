@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,9 +8,20 @@ public class UILineRenderer : MaskableGraphic
 {
     public Vector2[] points;
 
+    public float x, y;
+
     public float thickness = 10f;
     public bool center = true;
 
+    public RectTransform parentRect;
+
+    [HideInInspector]public bool isSelectedd;
+
+    private void Start()
+    {
+        points[1] = new Vector2(0,0);
+        points[0] = new Vector2(0,0);
+    }
     protected override void OnPopulateMesh(VertexHelper vh)
     {
         vh.Clear();
@@ -47,11 +59,11 @@ public class UILineRenderer : MaskableGraphic
     /// <param name="vh">The vertex helper that the segment is added to</param>
     private void CreateLineSegment(Vector3 point1, Vector3 point2, VertexHelper vh)
     {
-        Vector3 offset = center ? (rectTransform.sizeDelta / 2) : Vector2.zero;
+        Vector3 offset = Vector2.zero;
 
         // Create vertex template
         UIVertex vertex = UIVertex.simpleVert;
-        vertex.color = color;
+        vertex.color = transform.parent.GetComponent<Image>().color;
 
         // Create the start of the segment
         Quaternion point1Rotation = Quaternion.Euler(0, 0, RotatePointTowards(point1, point2) + 90);
@@ -89,6 +101,21 @@ public class UILineRenderer : MaskableGraphic
 
     private void Update()
     {
-        points[1] = Input.mousePosition;
+        bool isInside = RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            transform.parent.parent.GetComponent<RectTransform>(),
+            Input.mousePosition,
+            null,
+            out Vector2 localPoint
+        );
+
+        if (isInside)
+        {
+            if (isSelectedd)
+            {
+            points[1] = localPoint + new Vector2(x, y);
+            SetVerticesDirty();
+
+            }
+        }
     }
 }

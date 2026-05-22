@@ -14,6 +14,10 @@ public class PuzzleWires : MonoBehaviour
     private int blueCount = 0;
     private int greenCount = 0;
 
+    [HideInInspector]public List<bool> isSelectedList = new List<bool>();
+
+    [HideInInspector]public PuzzleWiresDrag PWD;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

@@ -34,13 +34,13 @@ public class PuzzleWiresDrag : MonoBehaviour, IPointerEnterHandler, IPointerExit
     //}
     public void WireGrab()
     {
-        if (hovered)
+        if (hovered && transform.parent.parent.GetComponent<PuzzleWires>().isSelectedList.Count < 1)
         {
             RectTransform rt = transform as RectTransform;
-            var clone = Instantiate(gameObject, rt.position, transform.rotation, rt.parent.parent as RectTransform);
-            clone.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 50);
-            clone.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 50);
-            clonee = clone;
+            transform.GetComponentInChildren<UILineRenderer>().isSelectedd = true;
+            transform.parent.parent.GetComponent<PuzzleWires>().PWD = this;
+            transform.parent.parent.GetComponent<PuzzleWires>().isSelectedList.Add(transform.GetComponentInChildren<UILineRenderer>().isSelectedd);
+
 
             Debug.Log("Wire Grabbed");
         }
@@ -62,6 +62,21 @@ public class PuzzleWiresDrag : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerDown(PointerEventData eventData)
     {
+
+        if (transform.GetComponentInChildren<UILineRenderer>().isSelectedd)
+        {
+            Debug.Log("Attempting to Place Wire");
+            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(cameraRay, out RaycastHit raycastHit))
+            {
+                if (transform.parent.parent.GetComponent<PuzzleWires>().PWD.GetComponent<Image>().color == raycastHit.collider.gameObject.GetComponent<Image>().color)
+                {
+                    Debug.Log("Wire Placed");
+                    transform.parent.parent.GetComponent<PuzzleWires>().PWD.GetComponent<UILineRenderer>().points[1] = raycastHit.collider.gameObject.GetComponent<RectTransform>().position;
+                }
+            }
+        }
         WireGrab();
     }
 
