@@ -62,20 +62,26 @@ public class PuzzleWiresDrag : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerDown(PointerEventData eventData)
     {
-
-        if (transform.GetComponentInChildren<UILineRenderer>().isSelectedd)
+            GraphicRaycaster gr = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
+            PointerEventData ped = new PointerEventData(EventSystem.current);
+            ped.position = Input.mousePosition;
+                List<RaycastResult> results = new List<RaycastResult>();
+            gr.Raycast(ped, results);
+        if (transform.parent.parent.GetComponent<PuzzleWires>().isSelectedList.Count >= 1)
         {
             Debug.Log("Attempting to Place Wire");
-            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(cameraRay, out RaycastHit raycastHit))
-            {
-                if (transform.parent.parent.GetComponent<PuzzleWires>().PWD.GetComponent<Image>().color == raycastHit.collider.gameObject.GetComponent<Image>().color)
-                {
+            if (transform.parent.parent.GetComponent<PuzzleWires>().PWD.GetComponent<Image>().color == results[1].gameObject.GetComponent<Image>().color)
+           {
                     Debug.Log("Wire Placed");
-                    transform.parent.parent.GetComponent<PuzzleWires>().PWD.GetComponent<UILineRenderer>().points[1] = raycastHit.collider.gameObject.GetComponent<RectTransform>().position;
-                }
+                    transform.parent.parent.GetComponent<PuzzleWires>().PWD.GetComponentInChildren<UILineRenderer>().points[1] = results[1].gameObject.GetComponent<RectTransform>().position;
+                    transform.parent.parent.GetComponent<PuzzleWires>().PWD.GetComponentInChildren<UILineRenderer>().isSelectedd = false;
+                    results.Clear();
+                    transform.parent.parent.GetComponent<PuzzleWires>().isSelectedList.Clear();
+                    transform.parent.parent.GetComponent<PuzzleWires>().PWD = null;
+
             }
+
         }
         WireGrab();
     }
