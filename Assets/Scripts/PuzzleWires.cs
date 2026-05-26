@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEditor;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 public class PuzzleWires : MonoBehaviour
 {
-    public GameObject Wire1, Wire2, Wire3, Wire4, Wire5, Wire6;
+    public GameObject Wire1, Wire2, Wire3, Wire4, Wire5, Wire6,Background,WireObj;
     private List<GameObject> leftWires = new List<GameObject>();
     private List<GameObject> rightWires = new List<GameObject>();
     private int redCount = 0;
@@ -15,6 +16,7 @@ public class PuzzleWires : MonoBehaviour
     private int greenCount = 0;
 
     [HideInInspector]public List<bool> isSelectedList = new List<bool>();
+    public List<int> ConnectedWires = new List<int>();
 
     [HideInInspector]public PuzzleWiresDrag PWD;
 
@@ -34,9 +36,19 @@ public class PuzzleWires : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        StartCoroutine(Check());
     }
-
+    private IEnumerator Check()
+    {
+        if (ConnectedWires.Count >= 3)
+        {
+            Background.GetComponent<Image>().color = Color.yellow;
+            yield return new WaitForSeconds(1f);
+            WireObj.SetActive(true);
+            WireObj.GetComponent<PuzzlePassword>().key.SetActive(true);
+            gameObject.SetActive(false);
+        }
+    }
     private void ColorCalcLeft()
     {
         bool running = true;

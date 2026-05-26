@@ -98,7 +98,12 @@ public class UILineRenderer : MaskableGraphic
     {
         return (float)(Mathf.Atan2(target.y - vertex.y, target.x - vertex.x) * (180 / Mathf.PI));
     }
-
+    public void SetPoint(Vector2 v)
+    {
+        points[1] = v; 
+        Debug.Log($"X: {v.x} Y: {v.y}");
+        SetVerticesDirty();
+    }
     private void Update()
     {
         bool isInside = RectTransformUtility.ScreenPointToLocalPointInRectangle(

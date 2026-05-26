@@ -36,10 +36,13 @@ public class PuzzleWiresDrag : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         if (hovered && transform.parent.parent.GetComponent<PuzzleWires>().isSelectedList.Count < 1)
         {
-            RectTransform rt = transform as RectTransform;
+            //RectTransform rt = transform as RectTransform;
+            if (transform.childCount >= 1)
+            { 
             transform.GetComponentInChildren<UILineRenderer>().isSelectedd = true;
             transform.parent.parent.GetComponent<PuzzleWires>().PWD = this;
             transform.parent.parent.GetComponent<PuzzleWires>().isSelectedList.Add(transform.GetComponentInChildren<UILineRenderer>().isSelectedd);
+            }
 
 
             Debug.Log("Wire Grabbed");
@@ -62,29 +65,28 @@ public class PuzzleWiresDrag : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerDown(PointerEventData eventData)
     {
-            GraphicRaycaster gr = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
-            PointerEventData ped = new PointerEventData(EventSystem.current);
-            ped.position = Input.mousePosition;
-                List<RaycastResult> results = new List<RaycastResult>();
-            gr.Raycast(ped, results);
-        if (transform.parent.parent.GetComponent<PuzzleWires>().isSelectedList.Count >= 1)
+        //GraphicRaycaster gr = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
+        //PointerEventData ped = new PointerEventData(EventSystem.current);
+        //ped.position = Input.mousePosition;
+        //    List<RaycastResult> results = new List<RaycastResult>();
+        //gr.Raycast(ped, results);
+        var mainWires = transform.parent.parent.GetComponent<PuzzleWires>();
+
+        if (mainWires.isSelectedList.Count >= 1)
         {
             Debug.Log("Attempting to Place Wire");
 
-            if (transform.parent.parent.GetComponent<PuzzleWires>().PWD.GetComponent<Image>().color == results[1].gameObject.GetComponent<Image>().color)
-           {
-                    Debug.Log("Wire Placed");
-                    transform.parent.parent.GetComponent<PuzzleWires>().PWD.GetComponentInChildren<UILineRenderer>().points[1] = results[1].gameObject.GetComponent<RectTransform>().position;
-                    transform.parent.parent.GetComponent<PuzzleWires>().PWD.GetComponentInChildren<UILineRenderer>().isSelectedd = false;
-                    results.Clear();
-                    transform.parent.parent.GetComponent<PuzzleWires>().isSelectedList.Clear();
-                    transform.parent.parent.GetComponent<PuzzleWires>().PWD = null;
-
+            if (mainWires.PWD.GetComponent<Image>().color == gameObject.GetComponent<Image>().color)
+            {
+                Debug.Log("Wire Placed");
+                mainWires.PWD.GetComponentInChildren<UILineRenderer>().isSelectedd = false;
+                mainWires.PWD.GetComponentInChildren<UILineRenderer>().SetPoint(GetComponent<RectTransform>().anchoredPosition - mainWires.PWD.GetComponent<RectTransform>().anchoredPosition);
+                mainWires.isSelectedList.Clear();
+                mainWires.PWD = null;
+                mainWires.ConnectedWires.Add(1);
             }
-
         }
+
         WireGrab();
     }
-
-
 }

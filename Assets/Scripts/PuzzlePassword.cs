@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 public class PuzzlePassword : MonoBehaviour
 {
-    [SerializeField] private GameObject puzzleObj, puzzleIg, key;
+    public GameObject puzzleObj, puzzleIg, key;
     public int Num1, Num2, Num3;
     [HideInInspector]public bool isOpen = false;
     [HideInInspector]public Vector3 pos;
