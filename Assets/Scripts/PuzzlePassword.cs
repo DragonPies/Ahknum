@@ -8,10 +8,18 @@ public class PuzzlePassword : MonoBehaviour
     [HideInInspector]public bool isOpen = false;
     [HideInInspector]public Vector3 pos;
 
+    public bool IsHardSet;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        pos = puzzleObj.transform.position; 
+        pos = puzzleObj.transform.position;
+        if (!IsHardSet)
+        { 
+            Num1 = Random.Range(0, 10);
+            Num2 = Random.Range(0, 10);
+            Num3 = Random.Range(0, 10);      
+        }
     }
 
     // Update is called once per frame
