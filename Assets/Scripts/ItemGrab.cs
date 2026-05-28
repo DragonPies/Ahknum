@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class ItemGrab : MonoBehaviour
 {
     public List<GameObject> items = new List<GameObject>();
+    public GameObject endscreen, button;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,7 +16,13 @@ public class ItemGrab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        foreach (GameObject item in items)
+            {
+                if (item == button)
+                {
+                endscreen.SetActive(true);
+                }
+            }
     }
 
     public void Grob(InputAction.CallbackContext ctx)

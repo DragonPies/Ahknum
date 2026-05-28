@@ -4,9 +4,10 @@ using UnityEngine.UI;
 
 public class PuzzlePasswordUICheck : MonoBehaviour
 {
-    public GameObject PuzzleObj, PuzzlePasswordScreen, Key;
+    public GameObject PuzzleObj, PuzzlePasswordScreen, door, key;
     public PuzzlePassword PP;
     public PuzzlePasswordUI n1,n2,n3;
+    public ItemGrab IG;
     public Button CheckButton;
 
     public void Button()
@@ -20,8 +21,11 @@ public class PuzzlePasswordUICheck : MonoBehaviour
             CheckButton.GetComponent<Image>().color = Color.green;
             yield return new WaitForSeconds(1);
             PuzzlePasswordScreen.SetActive(false);
-            Key.SetActive(true);
             PuzzleObj.SetActive(true);
+            yield return new WaitForSeconds(1);
+            door.SetActive(false);
+            IG.items.Add(key);
+            key.SetActive(false);
         }
         else
         {
