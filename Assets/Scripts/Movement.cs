@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -38,7 +39,11 @@ public class Movement : MonoBehaviour
         else 
         { 
             Debug.Log("Moving Forward");
-             Rb.transform.Translate(Vector3.forward * distance, Camera.main.transform);
+            for (float t = 0; t < 1; t += 1 *Time.deltaTime)
+            {
+                transform.position = Vector3.Lerp(transform.position, Rb.transform.position + transform.forward * distance, t);
+
+            }
         }
        
     }
@@ -57,10 +62,24 @@ public class Movement : MonoBehaviour
 
         else 
         { 
+            StartCoroutine(Forwards());
             Debug.Log("Moving Forward");
-             Rb.transform.Translate(Vector3.forward * distance, Camera.main.transform);
+
+            
         }
-       
+
+    }
+
+    private IEnumerator Forwards()
+    {
+        Vector3 startPos = Rb.transform.position;
+        Vector3 finalPos = Rb.transform.position + transform.forward * distance;
+
+        for (float t = 0; t < 1; t += 1 * Time.deltaTime)
+        {
+            transform.position = Vector3.Lerp(startPos, finalPos, t);
+            yield return null;
+        }
     }
 
     public void Right(InputAction.CallbackContext ctx)

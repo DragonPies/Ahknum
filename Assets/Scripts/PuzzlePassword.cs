@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -51,6 +52,13 @@ public class PuzzlePassword : MonoBehaviour
             isOpen = false;
         }
     }
+        public void CloseCanvas()
+        {
+            puzzleObj.SetActive(true);
+            puzzleIg.SetActive(false);
+            key.SetActive(true);
+    }
+    
 
 
 
