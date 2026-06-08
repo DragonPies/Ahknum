@@ -38,12 +38,7 @@ public class Movement : MonoBehaviour
 
         else 
         { 
-            Debug.Log("Moving Forward");
-            for (float t = 0; t < 1; t += 1 *Time.deltaTime)
-            {
-                transform.position = Vector3.Lerp(transform.position, Rb.transform.position + transform.forward * distance, t);
-
-            }
+          StartCoroutine(Forwards());
         }
        
     }
@@ -85,21 +80,42 @@ public class Movement : MonoBehaviour
     public void Right(InputAction.CallbackContext ctx)
     { 
         if (!ctx.performed) return;
-        Rb.rotation = Quaternion.Euler(0, 90, 0) * Rb.rotation;
+        StartCoroutine(Rights());
     }
     public void RightB()
     { 
         Rb.rotation = Quaternion.Euler(0, 90, 0) * Rb.rotation;
+        StartCoroutine(Rights());
     }
-
+    private IEnumerator Rights()
+    {
+        Quaternion startRot = Rb.rotation;
+        Quaternion finalRot = Quaternion.Euler(0, 90, 0) * Rb.rotation;
+        for (float t = 0; t < 1; t += 1 * Time.deltaTime)
+        {
+            Rb.rotation = Quaternion.Lerp(startRot, finalRot, t);
+            yield return null;
+        }
+    }
     public void Left(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
-        Rb.rotation = Quaternion.Euler(0, -90, 0) * Rb.rotation;
+        StartCoroutine(Lefts());
     }
     public void LeftB()
     {
         
-        Rb.rotation = Quaternion.Euler(0, -90, 0) * Rb.rotation;
+        StartCoroutine(Lefts());
+    }
+
+    private IEnumerator Lefts()
+    {
+        Quaternion startRot = Rb.rotation;
+        Quaternion finalRot = Quaternion.Euler(0, -90, 0) * Rb.rotation;
+        for (float t = 0; t < 1; t += 1 * Time.deltaTime)
+        {
+            Rb.rotation = Quaternion.Lerp(startRot, finalRot, t);
+            yield return null;
+        }
     }
 }
