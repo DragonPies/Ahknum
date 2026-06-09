@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     public Rigidbody Rb;
     public Transform camtrans;
     private float distance = 10f;
+    private bool canMove = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,7 +39,8 @@ public class Movement : MonoBehaviour
 
         else 
         { 
-          StartCoroutine(Forwards());
+            if (canMove)
+                StartCoroutine(Forwards());
         }
        
     }
@@ -57,6 +59,7 @@ public class Movement : MonoBehaviour
 
         else 
         { 
+            if (canMove)
             StartCoroutine(Forwards());
             Debug.Log("Moving Forward");
 
@@ -69,53 +72,60 @@ public class Movement : MonoBehaviour
     {
         Vector3 startPos = Rb.transform.position;
         Vector3 finalPos = Rb.transform.position + transform.forward * distance;
-
+        canMove = false;
         for (float t = 0; t < 1; t += 1 * Time.deltaTime)
         {
             transform.position = Vector3.Lerp(startPos, finalPos, t);
             yield return null;
         }
+        canMove = true;
     }
 
     public void Right(InputAction.CallbackContext ctx)
     { 
         if (!ctx.performed) return;
+        if (canMove)
         StartCoroutine(Rights());
     }
     public void RightB()
     { 
-        Rb.rotation = Quaternion.Euler(0, 90, 0) * Rb.rotation;
-        StartCoroutine(Rights());
+            if (canMove)
+            StartCoroutine(Rights());
     }
     private IEnumerator Rights()
     {
         Quaternion startRot = Rb.rotation;
         Quaternion finalRot = Quaternion.Euler(0, 90, 0) * Rb.rotation;
+        canMove = false;
         for (float t = 0; t < 1; t += 1 * Time.deltaTime)
         {
             Rb.rotation = Quaternion.Lerp(startRot, finalRot, t);
             yield return null;
         }
+        canMove = true;
     }
     public void Left(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
-        StartCoroutine(Lefts());
+        if (canMove)
+            StartCoroutine(Lefts());
     }
     public void LeftB()
     {
-        
-        StartCoroutine(Lefts());
+        if (canMove)
+            StartCoroutine(Lefts());
     }
 
     private IEnumerator Lefts()
     {
         Quaternion startRot = Rb.rotation;
         Quaternion finalRot = Quaternion.Euler(0, -90, 0) * Rb.rotation;
+        canMove = false;
         for (float t = 0; t < 1; t += 1 * Time.deltaTime)
         {
             Rb.rotation = Quaternion.Lerp(startRot, finalRot, t);
             yield return null;
         }
+        canMove = true;
     }
 }

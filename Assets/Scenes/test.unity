@@ -467,7 +467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &54448058
 Transform:
   m_ObjectHideFlags: 0
@@ -7155,6 +7155,7 @@ MonoBehaviour:
   n3: {fileID: 1419062258}
   IG: {fileID: 891810730}
   CheckButton: {fileID: 925805222}
+  anim: {fileID: 919132148065882593}
 --- !u!114 &925805222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14769,6 +14770,7 @@ GameObject:
   - component: {fileID: 543450652541160282}
   - component: {fileID: 446054306}
   - component: {fileID: 446054305}
+  - component: {fileID: 919132148065882593}
   m_Layer: 0
   m_Name: Box
   m_TagString: Puzzle
@@ -14776,6 +14778,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &919132148065882593
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148065882592}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2832618c39d88e744b43e3d5a167e4cf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!23 &959153786854088823
 MeshRenderer:
   m_ObjectHideFlags: 0

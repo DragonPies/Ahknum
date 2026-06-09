@@ -9,6 +9,7 @@ public class PuzzlePasswordUICheck : MonoBehaviour
     public PuzzlePasswordUI n1,n2,n3;
     public ItemGrab IG;
     public Button CheckButton;
+    public Animator anim;
 
     public void Button()
     {
@@ -22,10 +23,9 @@ public class PuzzlePasswordUICheck : MonoBehaviour
             yield return new WaitForSeconds(1);
             PuzzlePasswordScreen.SetActive(false);
             PuzzleObj.SetActive(true);
+            anim.SetTrigger("Open");
             yield return new WaitForSeconds(1);
-            door.SetActive(false);
-            IG.items.Add(key);
-            key.SetActive(false);
+
         }
         else
         {
