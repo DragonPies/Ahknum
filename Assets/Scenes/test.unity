@@ -625,7 +625,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 0
   direction: 5
-  numberOfConnections: 2
 --- !u!114 &81137310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1222,7 +1221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 0
   direction: 5
-  numberOfConnections: 2
 --- !u!114 &162764330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2522,7 +2520,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 0
   direction: 6
-  numberOfConnections: 2
 --- !u!1 &373221491
 GameObject:
   m_ObjectHideFlags: 0
@@ -3962,7 +3959,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 1
   direction: 8
-  numberOfConnections: 1
 --- !u!114 &567043215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9284,7 +9280,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 0
   direction: 6
-  numberOfConnections: 2
 --- !u!114 &1259957148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10360,7 +10355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzleObj: {fileID: 1417280689}
   puzzleIg: {fileID: 12296487}
-  key: {fileID: 12296487}
+  key: {fileID: 1580568509}
   Num1: 0
   Num2: 0
   Num3: 0
@@ -11452,7 +11447,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 0
   direction: 6
-  numberOfConnections: 2
 --- !u!114 &1514786399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11814,7 +11808,7 @@ GameObject:
   - component: {fileID: 1580568511}
   m_Layer: 0
   m_Name: key
-  m_TagString: Untagged
+  m_TagString: Grabbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13013,7 +13007,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 0
   direction: 5
-  numberOfConnections: 2
 --- !u!114 &1827644894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13213,7 +13206,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 0
   direction: 5
-  numberOfConnections: 2
 --- !u!114 &1860153691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14157,7 +14149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 0
   direction: 6
-  numberOfConnections: 2
 --- !u!114 &2072901964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14248,7 +14239,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 0
   direction: 5
-  numberOfConnections: 2
 --- !u!114 &2076708877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14339,7 +14329,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 1
   direction: 2
-  numberOfConnections: 1
 --- !u!114 &2079248585
 MonoBehaviour:
   m_ObjectHideFlags: 0

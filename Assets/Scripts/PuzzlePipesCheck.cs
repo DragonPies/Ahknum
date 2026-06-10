@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,23 +6,16 @@ public class PuzzlePipesCheck : MonoBehaviour
 {
     public UnityEvent onComplete;
     public PuzzlePipeRotate[] pipes;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void CheckWin()
     {
         if (IsComplete())
         {
             Win();
+        }
+        else
+        {
+            Lose();
         }
     }
 
@@ -32,33 +26,53 @@ public class PuzzlePipesCheck : MonoBehaviour
         Debug.Log("Puzzle Completed!");
     }
 
+    [ContextMenu("Lose")]
+    public void Lose()
+    {
+        Debug.Log("Puzzle Incomplete");
+    }
+
     public bool IsComplete()
     {
-        for (int i = 1; i < pipes.Length - 1; i++)
+        PuzzlePipeRotate.Directions[] allDirections = pipes.Select(item => item.direction).ToArray();
+
+        for (int i = 0; i < allDirections.Length - 1; i++)
         {
-            PuzzlePipeRotate previous = pipes[i-1];
-            PuzzlePipeRotate current = pipes[i];
-            PuzzlePipeRotate next = pipes[i+1];
+            var current = allDirections[i];
+            var next = allDirections[i + 1];
 
-            bool previousRightLeftConnection = previous.direction.HasFlag(PuzzlePipeRotate.Directions.right) && current.direction.HasFlag(PuzzlePipeRotate.Directions.left);
-            bool previousUpDownConnection = previous.direction.HasFlag(PuzzlePipeRotate.Directions.up) && current.direction.HasFlag(PuzzlePipeRotate.Directions.down);
-            bool previousLeftRightConnection = previous.direction.HasFlag(PuzzlePipeRotate.Directions.left) && current.direction.HasFlag(PuzzlePipeRotate.Directions.right);
-            bool previousDownUpConnection = previous.direction.HasFlag(PuzzlePipeRotate.Directions.down) && current.direction.HasFlag(PuzzlePipeRotate.Directions.up);
+            bool rightLeftConnection = current.HasFlag(PuzzlePipeRotate.Directions.right) && next.HasFlag(PuzzlePipeRotate.Directions.left);
+            bool upDownConnection = current.HasFlag(PuzzlePipeRotate.Directions.up) && next.HasFlag(PuzzlePipeRotate.Directions.down);
+            bool leftRightConnection = current.HasFlag(PuzzlePipeRotate.Directions.left) && next.HasFlag(PuzzlePipeRotate.Directions.right);
+            bool downUpConnection = current.HasFlag(PuzzlePipeRotate.Directions.down) && next.HasFlag(PuzzlePipeRotate.Directions.up);
 
-            bool nextRightLeftConnection = current.direction.HasFlag(PuzzlePipeRotate.Directions.right) && next.direction.HasFlag(PuzzlePipeRotate.Directions.left);
-            bool nextUpDownConnection = current.direction.HasFlag(PuzzlePipeRotate.Directions.up) && next.direction.HasFlag(PuzzlePipeRotate.Directions.down);
-            bool nextLeftRightConnection = current.direction.HasFlag(PuzzlePipeRotate.Directions.left) && next.direction.HasFlag(PuzzlePipeRotate.Directions.right);
-            bool nextDownUpConnection = current.direction.HasFlag(PuzzlePipeRotate.Directions.down) && next.direction.HasFlag(PuzzlePipeRotate.Directions.up);
-
-            int previousCount = (previousRightLeftConnection ? 1 : 0) + (previousUpDownConnection ? 1 : 0) + (previousLeftRightConnection ? 1 : 0) + (previousDownUpConnection ? 1 : 0);
-            int nextCount = (nextRightLeftConnection ? 1 : 0) + (nextUpDownConnection ? 1 : 0) + (nextLeftRightConnection ? 1 : 0) + (nextDownUpConnection ? 1 : 0);
-
-            if (previousCount + nextCount != current.numberOfConnections)
+            if (rightLeftConnection)
             {
-                Debug.Log($"{current.name} and {next.name} are not connected properly.");
-                Debug.Log($"Prev Connection Count: {previousCount}");
-                Debug.Log($"Next Connection Count: {nextCount}");
-                
+                allDirections[i] &= ~PuzzlePipeRotate.Directions.right;
+                allDirections[i + 1] &= ~PuzzlePipeRotate.Directions.left;
+            }
+
+            if (upDownConnection)
+            {
+                allDirections[i] &= ~PuzzlePipeRotate.Directions.up;
+                allDirections[i + 1] &= ~PuzzlePipeRotate.Directions.down;
+            }
+
+            if (leftRightConnection)
+            {
+                allDirections[i] &= ~PuzzlePipeRotate.Directions.left;
+                allDirections[i + 1] &= ~PuzzlePipeRotate.Directions.right;
+            }
+
+            if (downUpConnection)
+            {
+                allDirections[i] &= ~PuzzlePipeRotate.Directions.down;
+                allDirections[i + 1] &= ~PuzzlePipeRotate.Directions.up;
+            }
+
+            if (!rightLeftConnection && !upDownConnection && !leftRightConnection && !downUpConnection)
+            {
+                Debug.Log($"{pipes[i].name} - {pipes[i + 1].name} couldn't be connected");
                 return false;
             }
         }

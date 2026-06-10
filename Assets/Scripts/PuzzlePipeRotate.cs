@@ -5,6 +5,7 @@ public class PuzzlePipeRotate : MonoBehaviour ,IPointerEnterHandler, IPointerExi
 {
     private bool hovered;
     public bool isEnd;
+
     [System.Flags]
     public enum Directions : uint
     {
@@ -14,7 +15,6 @@ public class PuzzlePipeRotate : MonoBehaviour ,IPointerEnterHandler, IPointerExi
         left = 8
     }
     public Directions direction;
-    public int numberOfConnections;
 
     void Start()
     {
