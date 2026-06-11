@@ -3,8 +3,11 @@ using UnityEngine.EventSystems;
 
 public class PuzzleSlideMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
+    public static Positions emptyPosition = Positions.ninth;
+
     private bool _hovered = false;
     public PuzzleSlideGrid PSG;
+
     public enum Positions
     {
         first,
@@ -18,24 +21,20 @@ public class PuzzleSlideMove : MonoBehaviour, IPointerEnterHandler, IPointerExit
         ninth
     }
     public Positions position;
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (_hovered)
         {
-            if (PSG.selectedPiece.Count == 0)
-            {             
-                PSG.selectedPiece.Add(gameObject);
+            if ((int)position + 1 == (int)emptyPosition && (position != Positions.third && position != Positions.sixth) ||
+                ((int)position - 1 == (int)emptyPosition && (position != Positions.fourth && position != Positions.seventh)) ||
+                (int)position + 3 == (int)emptyPosition ||
+                (int)position - 3 == (int)emptyPosition)
+            {
+                (emptyPosition, position) = (position, emptyPosition);
+
+                GetComponent<RectTransform>().anchoredPosition = PSG.positionMap[position];
             }
-            
-                else if (PSG.selectedPiece.Count == 1 && PSG.selectedPiece[0] != gameObject)
-                {
-                    Vector2 temp = PSG.selectedPiece[0].transform.localPosition;
-                    Vector2 temp2 = PSG.selectedPiece[1].transform.localPosition;
-                    PSG.selectedPiece.Add(gameObject);
-                    PSG.selectedPiece[0].transform.localPosition = temp2;
-                    PSG.selectedPiece[1].transform.localPosition = temp;
-                PSG.selectedPiece.Clear();
-                }
         }
     }
 
@@ -52,52 +51,12 @@ public class PuzzleSlideMove : MonoBehaviour, IPointerEnterHandler, IPointerExit
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (position == Positions.first)
+        PSG.positionMap[position] = GetComponent<RectTransform>().anchoredPosition;
+
+        if (position == emptyPosition)
         {
-            PSG.n1 = transform.localPosition;
+            gameObject.SetActive(false);
         }
-
-        if (position == Positions.second)
-        {
-            PSG.n2 = transform.localPosition;
-        }
-
-        if (position == Positions.third)
-        {
-            PSG.n3 = transform.localPosition;
-        }   
-
-        if (position == Positions.fourth)
-        {
-            PSG.n4 = transform.localPosition;
-        }
-
-        if (position == Positions.fifth)
-        {
-            PSG.n5 = transform.localPosition;
-        }
-
-        if (position == Positions.sixth)
-        {
-            PSG.n6 = transform.localPosition;
-        }
-
-        if (position == Positions.seventh)
-        {
-            PSG.n7 = transform.localPosition;
-        }
-
-        if (position == Positions.eighth)
-        {
-            PSG.n8 = transform.localPosition;
-        }
-
-        if (position == Positions.ninth)
-        {
-                PSG.n9 = transform.localPosition;
-        }
-
-
     }
 
     // Update is called once per frame
